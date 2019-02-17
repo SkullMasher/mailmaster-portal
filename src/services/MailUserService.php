@@ -61,4 +61,8 @@ class MailUserService {
       return null;
     }
   }
+
+  public function getAllMail() {
+    return $this->virtualuser->all();
+  }
 }
