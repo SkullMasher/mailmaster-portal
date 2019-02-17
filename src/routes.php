@@ -18,7 +18,7 @@ $app->post('/', function (Request $request, Response $response) {
   $data = $request->getParsedBody();
   // is it a portal authentification or a new user
   if (isset($data['newUserMail']) && isset($data['newUserPassword'])) {
-    // return $this->mailuser_service->addMail($data);
+    return $this->mailuser_service->addMail($data);
   }
 });
 

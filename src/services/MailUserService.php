@@ -7,7 +7,7 @@ class MailUserService {
   function __construct($logger)
   {
     $this->logger = $logger;
-    $this->mailUser = new VirtualUser;
+    $this->virtualuser = new VirtualUser;
   }
 
   private function mt_rand_str ($l, $c = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890') {
@@ -39,8 +39,10 @@ class MailUserService {
 
   public function addMail($data) {
     $dataCount = count($data);
-    $this->logger->info('addMail');
-
+    $this->virtualuser->domain_id = 1;
+    $this->virtualuser->password = $data['newUserPassword'];
+    $this->virtualuser->email = $data['newUserMail'];
+    $this->virtualuser->save();
     return json_encode($data);
   }
 
