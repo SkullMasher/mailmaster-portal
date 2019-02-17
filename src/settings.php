@@ -1,6 +1,5 @@
 <?php
 require 'settings/database.php'; // database settings/credentials
-require 'settings/access.php'; // database settings/credentials
 
 return [
   'settings' => [
@@ -19,7 +18,5 @@ return [
     ],
     // Eloquent settings
     'db' => $databaseSettings,
-    // Access settings
-    'access' => $accessSettings
   ],
 ];

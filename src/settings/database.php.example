@@ -5,7 +5,7 @@
 $databaseSettings = [
   'driver' => 'mysql',
   'host' => '127.0.0.1',
-  'database' => 'wish_card_2019',
+  'database' => 'servermail',
   'username' => 'databaseuser',
   'password' => 'databasepassword',
   'charset'   => 'utf8',
