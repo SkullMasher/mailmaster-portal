@@ -52,8 +52,8 @@ class MailUserService {
   }
 
   public function getMail($seed) {
-    $wishExist = $this->mailUser->where('seed', '=', $seed)->exists();
-    $wish = $this->mailUser->where('seed', '=', $seed)->first();
+    $wishExist = $this->virtualuser->where('seed', '=', $seed)->exists();
+    $wish = $this->virtualuser->where('seed', '=', $seed)->first();
 
     if ($wishExist) {
       return $wish;
@@ -64,5 +64,10 @@ class MailUserService {
 
   public function getAllMail() {
     return $this->virtualuser->all();
+  }
+
+  public function deleteMail($data) {
+    $this->virtualuser->destroy($data[0]);
+    return true;
   }
 }

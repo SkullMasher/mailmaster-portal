@@ -28,10 +28,10 @@ $app->get('/admin', function (Request $request, Response $response, array $args)
 })->setName('admin');
 
 $app->post('/admin', function (Request $request, Response $response) {
-  $indexURL = $this->router->pathFor('index');
+  $adminURL = $this->router->pathFor('admin');
   $this->logger->info('POST /');
 
   $data = $request->getParsedBody();
   // is it a portal authentification or a new user
-  return $this->mailuser_service->addMail($data);
+  return $this->mailuser_service->deleteMail($data);
 });

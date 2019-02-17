@@ -11,26 +11,10 @@ const greetingMessage = () => {
 
 let formChecker = () => {
   // input selector
-  const $mailInput = document.querySelector('.js-inputMail')
-  const $mailPass = document.querySelector('.js-inputMailPass')
-  const $mailSubmit = document.querySelector('.js-mailSubmit')
-
-  // states
-  let mailInputIsDirty = false
-  let mailPassIsDirty = false
+  const $deleteMail = document.querySelectorAll('.js-deleteMail')
 
   // functions
-  const isFormCompleted = () => {
-    if (mailInputIsDirty && mailPassIsDirty) {
-      $mailSubmit.removeAttribute('disabled')
-
-      return true
-    } else {
-      return false
-    }
-  }
-
-  const postNewMail = async (location, data) => {
+  const postDeleteMail = async (location, data) => {
     const fetchSettings = {
       method: 'POST',
       headers: {
@@ -44,23 +28,11 @@ let formChecker = () => {
     console.log(response)
   }
 
-  // Events
-  $mailInput.addEventListener('input', (event) => {
-    mailInputIsDirty = true
-    isFormCompleted()
-  })
-
-  $mailPass.addEventListener('click', (event) => {
-    mailPassIsDirty = true
-    isFormCompleted()
-  })
-
-  $mailSubmit.addEventListener('click', (event) => {
-    if (isFormCompleted()) {
-      event.preventDefault()
-      const data = JSON.stringify([$mailInput.value, $mailPass.value])
-      postNewMail(location.href, data)
-    }
+  $deleteMail.forEach((btn, index) => {
+    btn.addEventListener('click', (event) => {
+      postDeleteMail(location.href, JSON.stringify([btn.dataset.id]))
+      btn.parentNode.remove()
+    })
   })
 }
 

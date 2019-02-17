@@ -22,8 +22,7 @@ let formChecker = () => {
   // functions
   const isFormCompleted = () => {
     if (mailInputIsDirty && mailPassIsDirty) {
-      $mailSubmit.removeAttribute('disabled')
-
+      $mailSubmit.disabled = false
       return true
     } else {
       return false
@@ -50,7 +49,7 @@ let formChecker = () => {
     isFormCompleted()
   })
 
-  $mailPass.addEventListener('click', (event) => {
+  $mailPass.addEventListener('input', (event) => {
     mailPassIsDirty = true
     isFormCompleted()
   })
@@ -60,6 +59,12 @@ let formChecker = () => {
       event.preventDefault()
       const data = JSON.stringify([$mailInput.value, $mailPass.value])
       postNewMail(location.href, data)
+      //reset fields for new addition
+      $mailInput.value = ''
+      $mailPass.value = ''
+      mailInputIsDirty = false
+      mailPassIsDirty = false
+      $mailSubmit.disabled = true
     }
   })
 }
