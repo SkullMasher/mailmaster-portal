@@ -12,15 +12,13 @@ $app->get('/', function (Request $request, Response $response, array $args) {
 })->setName('index');
 
 $app->post('/', function (Request $request, Response $response) {
+  $indexURL = $this->router->pathFor('index');
   $this->logger->info('POST /');
+
   $data = $request->getParsedBody();
   // is it a portal authentification or a new user
-  if (isset($data['portalPassword'])) {
-    return $this->renderer->render($response, 'mailuser.phtml');
-  } else {
-
+  if (isset($data['newUserMail']) && isset($data['newUserPassword'])) {
+    // return $this->mailuser_service->addMail($data);
   }
-
-  // return $this->mailuser_service->addMail($data);
 });
 

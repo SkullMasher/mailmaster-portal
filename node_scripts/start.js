@@ -46,7 +46,8 @@ greetingMessage()
 bs.watch(appPath.appFolderPath + 'src/**/*.php').on('change', function () {
   bs.reload()
 })
-bs.watch(appPath.appFolderPath + 'src/**/*.phtml').on('change', function () {
+
+bs.watch(appPath.appFolderPath + 'templates/**/*.phtml').on('change', function () {
   bs.reload()
 })
 

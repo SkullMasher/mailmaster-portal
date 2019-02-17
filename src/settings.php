@@ -1,5 +1,6 @@
 <?php
 require 'settings/database.php'; // database settings/credentials
+require 'settings/access.php'; // database settings/credentials
 
 return [
   'settings' => [
@@ -17,6 +18,8 @@ return [
       'level' => \Monolog\Logger::DEBUG,
     ],
     // Eloquent settings
-    'db' => $databaseSettings
+    'db' => $databaseSettings,
+    // Access settings
+    'access' => $accessSettings
   ],
 ];

@@ -23,6 +23,10 @@ $capsule->addConnection($container['settings']['db']);
 $capsule->setAsGlobal();
 $capsule->bootEloquent();
 
+$container['accessSettings'] = function ($c) {
+  return $c->get('settings')['access'];
+};
+
 // Service for handling Wish
 $container['mailuser_service'] = function ($c) {
   return new MailUserService($c['logger']);
