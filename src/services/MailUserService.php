@@ -39,16 +39,16 @@ class MailUserService {
 
   public function addMail($data) {
     $dataCount = count($data);
+    $password = $data[1];
+    $salt = substr(sha1(rand()), 0, 16);
+    $hashedPassword = crypt($password, "$6$$salt");
 
-    if ($data['newUserPassword'] && $data['newUserMail']) {
-      $this->virtualuser->domain_id = 1;
-      $this->virtualuser->password = hash('sha512', $data['newUserPassword'], true);
-      $this->virtualuser->email = $data['newUserMail'];
-      $this->virtualuser->save();
-
-      return json_encode($data);
-    }
-
+    $this->virtualuser->domain_id = 1;
+    $this->virtualuser->email = $data[0];
+    $this->virtualuser->password = $hashedPassword;
+    $this->virtualuser->save();
+    $this->logger->info(crypt($password, "$6$$salt"));
+    return true;
   }
 
   public function getMail($seed) {

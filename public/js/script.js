@@ -30,6 +30,20 @@ let formChecker = () => {
     }
   }
 
+  const postNewMail = async (location, data) => {
+    const fetchSettings = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: data
+    }
+
+    const response = await fetch(location, fetchSettings)
+
+    console.log(response)
+  }
+
   // Events
   $mailInput.addEventListener('input', (event) => {
     mailInputIsDirty = true
@@ -43,7 +57,9 @@ let formChecker = () => {
 
   $mailSubmit.addEventListener('click', (event) => {
     if (isFormCompleted()) {
-      console.log('post some shit')
+      event.preventDefault()
+      const data = JSON.stringify([$mailInput.value, $mailPass.value])
+      postNewMail(location.href, data)
     }
   })
 }
