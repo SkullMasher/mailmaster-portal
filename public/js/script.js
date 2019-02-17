@@ -16,12 +16,12 @@ let formChecker = () => {
   const $mailSubmit = document.querySelector('.js-mailSubmit')
 
   // states
-  let mailInputIsDirty = false
-  let mailPassIsDirty = false
+  let mailInputIsCorrect = false
+  let mailPassIsCorrect = false
 
   // functions
   const isFormCompleted = () => {
-    if (mailInputIsDirty && mailPassIsDirty) {
+    if (mailInputIsCorrect && mailPassIsCorrect) {
       $mailSubmit.disabled = false
       return true
     } else {
@@ -45,26 +45,47 @@ let formChecker = () => {
 
   // Events
   $mailInput.addEventListener('input', (event) => {
-    mailInputIsDirty = true
+    // https://stackoverflow.com/questions/388996/regex-for-javascript-to-allow-only-alphanumeric#389022
+    mailInputIsCorrect =  /^[a-z0-9]+$/i.test($mailInput.value)
+    if (mailInputIsCorrect) {
+      $mailInput.classList.remove('border-danger')
+      $mailInput.classList.add('border-success')
+    } else {
+      $mailInput.classList.remove('border-success')
+      $mailInput.classList.add('border-danger')
+    }
+
     isFormCompleted()
   })
 
   $mailPass.addEventListener('input', (event) => {
-    mailPassIsDirty = true
+    if ($mailPass.value) {
+      mailPassIsCorrect = true
+      $mailPass.classList.remove('border-danger')
+      $mailPass.classList.add('border-success')
+    } else {
+      mailPassIsCorrect = false
+      $mailPass.classList.remove('border-success')
+      $mailPass.classList.add('border-danger')
+    }
+
     isFormCompleted()
   })
 
   $mailSubmit.addEventListener('click', (event) => {
     if (isFormCompleted()) {
       event.preventDefault()
+      const mail = $mailInput.value
       const data = JSON.stringify([$mailInput.value, $mailPass.value])
       postNewMail(location.href, data)
       //reset fields for new addition
       $mailInput.value = ''
       $mailPass.value = ''
-      mailInputIsDirty = false
-      mailPassIsDirty = false
+      mailInputIsCorrect = false
+      mailPassIsCorrect = false
       $mailSubmit.disabled = true
+      $mailInput.classList.remove('border-success')
+      $mailPass.classList.remove('border-success')
     }
   })
 }

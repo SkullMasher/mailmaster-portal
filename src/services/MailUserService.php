@@ -44,7 +44,7 @@ class MailUserService {
     $hashedPassword = crypt($password, "$6$$salt");
 
     $this->virtualuser->domain_id = 1;
-    $this->virtualuser->email = $data[0];
+    $this->virtualuser->email = $data[0] . '@mailmaster.fr';
     $this->virtualuser->password = $hashedPassword;
     $this->virtualuser->save();
     $this->logger->info(crypt($password, "$6$$salt"));

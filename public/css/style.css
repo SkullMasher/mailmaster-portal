@@ -2779,6 +2779,14 @@ a.btn {
   text-decoration: none;
 }
 
+.border-success {
+  border: 1px solid #5CB85C;
+}
+
+.border-danger {
+  border: 1px solid #D9534F;
+}
+
 .font-charm {
   font-family: charm;
 }

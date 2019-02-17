@@ -15,6 +15,14 @@ a.btn {
   text-decoration: none;
 }
 
+.border-success {
+  border: 1px solid $color-success;
+}
+
+.border-danger {
+  border: 1px solid $color-danger;
+}
+
 .font-charm {
   font-family: charm;
 }
