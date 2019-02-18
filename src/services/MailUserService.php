@@ -38,17 +38,24 @@ class MailUserService {
   }
 
   public function addMail($data) {
-    $dataCount = count($data);
+    $mail = strtolower($data[0]);
     $password = $data[1];
     $salt = substr(sha1(rand()), 0, 16);
     $hashedPassword = crypt($password, "$6$$salt");
 
-    $this->virtualuser->domain_id = 1;
-    $this->virtualuser->email = $data[0] . '@mailmaster.fr';
-    $this->virtualuser->password = $hashedPassword;
-    $this->virtualuser->save();
-    $this->logger->info(crypt($password, "$6$$salt"));
-    return true;
+    if (empty($mail) || empty($password)) {
+      return 'empty';
+    } else {
+      try {
+        $this->virtualuser->domain_id = 1;
+        $this->virtualuser->email = $mail . '@mailmaster.fr';
+        $this->virtualuser->password = $hashedPassword;
+        $this->virtualuser->save();
+        return json_encode(true);
+      } catch (Exception $e) {
+        return $e->getCode();
+      }
+    }
   }
 
   public function getMail($seed) {
@@ -69,5 +76,11 @@ class MailUserService {
   public function deleteMail($data) {
     $this->virtualuser->destroy($data[0]);
     return true;
+  }
+
+  public function isUniq($data) {
+    $mail = $data[0] . '@mailmaster.fr';
+    $this->logger->info(json_encode($this->virtualuser->where('email', '=', $mail)->exists()));
+    return json_encode($this->virtualuser->where('email', '=', $mail)->doesntExist());
   }
 }

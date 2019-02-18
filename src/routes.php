@@ -12,17 +12,20 @@ $app->get('/', function (Request $request, Response $response, array $args) {
 
 $app->post('/', function (Request $request, Response $response) {
   $indexURL = $this->router->pathFor('index');
-  $this->logger->info('POST /');
+  // $this->logger->info('POST /');
 
   $data = $request->getParsedBody();
   // is it a portal authentification or a new user
-  return $this->mailuser_service->addMail($data);
+  if (count($data) === 1) {
+    return $this->mailuser_service->isUniq($data);
+  } else {
+    return $this->mailuser_service->addMail($data);
+  }
 });
 
 $app->get('/admin', function (Request $request, Response $response, array $args) {
   $this->logger->info('GET /admin');
   $mail_list = $this->mailuser_service->getAllMail();
-  $this->logger->info($mail_list);
 
   return $this->renderer->render($response, 'admin.phtml', ['mail_list' => $mail_list]);
 })->setName('admin');

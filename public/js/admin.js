@@ -24,14 +24,17 @@ let formChecker = () => {
     }
 
     const response = await fetch(location, fetchSettings)
-
-    console.log(response)
   }
 
   $deleteMail.forEach((btn, index) => {
     btn.addEventListener('click', (event) => {
       postDeleteMail(location.href, JSON.stringify([btn.dataset.id]))
-      btn.parentNode.remove()
+        .then(response => {
+          btn.parentNode.remove()
+        })
+        .catch(err => {
+          console.log(err)
+        })
     })
   })
 }

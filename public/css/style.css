@@ -2740,6 +2740,10 @@ button:focus {
   color: #5CB85C;
 }
 
+.color--danger {
+  color: #D9534F;
+}
+
 .background--gray100 {
   background-color: #f8f9fa;
 }
