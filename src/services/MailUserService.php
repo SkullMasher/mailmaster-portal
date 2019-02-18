@@ -80,7 +80,6 @@ class MailUserService {
 
   public function isUniq($data) {
     $mail = $data[0] . '@mailmaster.fr';
-    $this->logger->info(json_encode($this->virtualuser->where('email', '=', $mail)->exists()));
     return json_encode($this->virtualuser->where('email', '=', $mail)->doesntExist());
   }
 }

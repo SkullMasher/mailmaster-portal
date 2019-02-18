@@ -12,7 +12,7 @@ $app->get('/', function (Request $request, Response $response, array $args) {
 
 $app->post('/', function (Request $request, Response $response) {
   $indexURL = $this->router->pathFor('index');
-  // $this->logger->info('POST /');
+  $this->logger->info('POST /');
 
   $data = $request->getParsedBody();
   // is it a portal authentification or a new user
